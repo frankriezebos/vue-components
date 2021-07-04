@@ -1,0 +1,9 @@
+.plan {
+  cursor: pointer;
+}
+
+.plan.active-plan {
+  -webkit-box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2) !important;
+          box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+/*# sourceMappingURL=style.css.map */

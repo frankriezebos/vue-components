@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Components Slots</title>
+
+    <style>
+        .done {
+            color: green;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Slots</h1>
+
+        <page-layout>
+            <template #header>
+                <h1>Here might be a page title</h1>
+            </template>
+    
+            <p>A paragraph for the main content</p>
+            <p>And another one.</p>
+    
+            <template #footer>
+                <p>Here's some contact info</p>
+            </template>
+        </page-layout>
+
+        <todo-item>
+            Buy Bananas
+            
+            <template v-slot:description>
+                <p>Bananas are good and delicious</p>
+            </template>
+            
+            <template #button-text>
+                Make it rain
+            </template>
+        </todo-item>
+
+        <todo-item>
+            Buy Bananas
+            
+            <template v-slot:description>
+                <p>Bananas are good and delicious</p>
+            </template>
+        </todo-item>
+    </div>
+
+    <!-- Development Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    
+    <!-- Production Vue.js -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script> -->
+
+    <script type="text/x-template" id="page-layout-template">
+        <div class="page-layout-wrap">
+            <div class="container">
+                <header>
+                    <slot name="header"></slot>
+                </header>
+
+                <main>
+                    <slot></slot>
+                </main>
+
+                <footer>
+                    <slot name="footer"></slot>
+                </footer>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="todo-item-template">
+        <div>
+            <input type="checkbox" v-model="completed">
+            <span :class="{done: completed}">
+                <slot></slot>
+            </span>
+            <slot name="description"></slot>
+            <button>
+                <slot name="button-text">Highlight</slot>
+            </button>
+        </div>
+    </script>
+
+    <script>
+        Vue.component('page-layout', {
+            template: '#page-layout-template'
+        })
+
+        Vue.component('todo-item', {
+            template: '#todo-item-template',
+            data() {
+                return {
+                    completed: false
+                }
+            }
+        })
+
+        new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+</html>
